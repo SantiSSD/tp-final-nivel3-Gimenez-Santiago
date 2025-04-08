@@ -1,6 +1,10 @@
-.vs/
-packages/
+# Binarios y objetos de compilación
 bin/
 obj/
+
+# Archivos de Visual Studio
+.vs/
 *.user
 *.suo
+*.cache
+*.vcxproj.*.cache
