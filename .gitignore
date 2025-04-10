@@ -8,3 +8,7 @@ obj/
 *.suo
 *.cache
 *.vcxproj.*.cache
+
+# Paquetes NuGet
+packages/
+*.nupkg

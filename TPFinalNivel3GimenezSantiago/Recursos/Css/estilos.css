@@ -1,0 +1,71 @@
+﻿/*Cambiar color del navbar*/
+.navbar {
+    background-color: #0A2A53 !important; /* azul oscuro */
+}
+/* Footer del mismo color */
+footer {
+    background-color: #0A2A53 !important;
+}
+
+/* Navbar activo */
+.nav-link.active {
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+/* Transiciones suaves */
+body {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Para mejorar la visibilidad del navbar activo */
+.navbar .nav-link {
+    color: white !important;
+}
+
+.btn-hover:hover {
+    background-color: #0056b3; /* azul más fuerte */
+    transform: scale(1.05); /* agranda el botón un 5% */
+    transition: all 0.3s ease; /* animación suave */
+}
+
+/* Efecto Fade In */
+.fade-in {
+    opacity: 0;
+    animation: fadeIn 1.2s ease forwards;
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Efecto Slide In (de izquierda a derecha) */
+.slide-in {
+    opacity: 0;
+    transform: translateX(-100px);
+    animation: slideIn 1s ease-out forwards;
+}
+
+@keyframes slideIn {
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Efecto Zoom In */
+.zoom-in {
+    transform: scale(0.8);
+    opacity: 0;
+    animation: zoomIn 0.8s ease forwards;
+}
+
+
+@keyframes zoomIn {
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
