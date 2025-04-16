@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CatalogoArticulos.AccesoDatos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,9 @@ namespace TPFinalNivel3GimenezSantiago.Admin
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
-
-		}
+            ArticulosNegocio negocio = new ArticulosNegocio(new AccesoDatos());
+            dgvArticulos.DataSource = negocio.ObtenerArticulosConSP();
+            dgvArticulos.DataBind();
+        }
 	}
 }

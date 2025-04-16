@@ -23,49 +23,120 @@ body {
     color: white !important;
 }
 
-.btn-hover:hover {
-    background-color: #0056b3; /* azul más fuerte */
-    transform: scale(1.05); /* agranda el botón un 5% */
-    transition: all 0.3s ease; /* animación suave */
+..custom-btn {
+    transition: all 2s cubic-bezier(0.16, 1, 0.3, 1) !important;
+    position: relative;
+    z-index: 1;
 }
 
-/* Efecto Fade In */
-.fade-in {
-    opacity: 0;
-    animation: fadeIn 1.2s ease forwards;
+.custom-btn:hover {
+    background-color: #0056b3 !important;
+    transform: scale(1.05) !important;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.8) !important;
 }
 
-@keyframes fadeIn {
-    to {
-        opacity: 1;
-    }
+.custom-btn::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    z-index: -1;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.8s ease;
 }
 
-/* Efecto Slide In (de izquierda a derecha) */
-.slide-in {
-    opacity: 0;
-    transform: translateX(-100px);
-    animation: slideIn 1s ease-out forwards;
-}
-
-@keyframes slideIn {
-    to {
-        transform: translateX(0);
-        opacity: 1;
-    }
-}
-
-/* Efecto Zoom In */
-.zoom-in {
-    transform: scale(0.8);
-    opacity: 0;
-    animation: zoomIn 0.8s ease forwards;
+.custom-btn:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
 }
 
 
-@keyframes zoomIn {
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
+/* Contenedor principal de cada card */
+.col.mb-4 {
+    display: flex;
+}
+
+/* Card general */
+.card.h-100.product-card {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+}
+
+/* Contenedor de imagen - altura fija */
+.img-container {
+    height: 200px; /* Altura fija para todas las imágenes */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    padding: 15px;
+}
+
+/* Imagen dentro del contenedor */
+.product-img {
+    max-height: 100%;
+    max-width: 100%;
+    object-fit: contain; /* Mantiene proporciones sin distorsión */
+}
+
+/* Cuerpo de la card - estructura flexible */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Ocupa todo el espacio disponible */
+    padding: 1.25rem;
+}
+
+/* Título - con límite de líneas */
+.card-title.text-truncate {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Descripción - altura fija con scroll */
+.description-truncate {
+    height: 60px; /* Altura fija para descripción */
+    overflow: hidden;
+    margin-bottom: 1rem;
+    color: #6c757d;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Máximo 3 líneas */
+    -webkit-box-orient: vertical;
+}
+
+/* Sección inferior - siempre pegada al fondo */
+.card-body > div:last-child {
+    margin-top: auto; /* Empuja hacia abajo */
+}
+
+/* Badges */
+.badge {
+    font-size: 0.75rem;
+    padding: 0.35em 0.65em;
+    font-weight: 500;
+}
+
+/* Precio */
+.text-primary {
+    color: #0d6efd !important;
+    font-weight: 600;
+}
+
+/* Botón */
+.btn-sm {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
 }

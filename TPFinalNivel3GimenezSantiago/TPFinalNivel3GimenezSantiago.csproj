@@ -72,7 +72,7 @@
     <Content Include="Account\MisFavoritos.aspx" />
     <Content Include="Account\Registro.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
-    <Content Include="Admin\GestionProductos.aspx" />
+    <Content Include="Admin\GestionArticulos.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
     <Content Include="Public\Catalogo.aspx" />
@@ -118,12 +118,12 @@
     <Compile Include="Admin\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Admin\GestionProductos.aspx.cs">
-      <DependentUpon>GestionProductos.aspx</DependentUpon>
+    <Compile Include="Admin\GestionArticulos.aspx.cs">
+      <DependentUpon>GestionArticulos.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Admin\GestionProductos.aspx.designer.cs">
-      <DependentUpon>GestionProductos.aspx</DependentUpon>
+    <Compile Include="Admin\GestionArticulos.aspx.designer.cs">
+      <DependentUpon>GestionArticulos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
@@ -178,6 +178,16 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Recursos\Img\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CatalogoArticulos-AccesoDatos\CatalogoArticulos.AccesoDatos.csproj">
+      <Project>{1fb25cd6-ba98-4d96-94e2-597015c9a3b6}</Project>
+      <Name>CatalogoArticulos.AccesoDatos</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Dominio\Dominio.Articulos.csproj">
+      <Project>{47ccd225-a5a1-49b6-9ad1-9f3df55585f8}</Project>
+      <Name>Dominio.Articulos</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
