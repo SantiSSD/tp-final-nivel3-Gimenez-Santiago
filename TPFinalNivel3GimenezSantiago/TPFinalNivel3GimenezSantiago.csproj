@@ -72,6 +72,7 @@
     <Content Include="Account\MisFavoritos.aspx" />
     <Content Include="Account\Registro.aspx" />
     <Content Include="Admin\Dashboard.aspx" />
+    <Content Include="Admin\FormularioArticulos.aspx" />
     <Content Include="Admin\GestionArticulos.aspx" />
     <Content Include="Default.aspx" />
     <Content Include="Global.asax" />
@@ -79,6 +80,7 @@
     <Content Include="Public\DetalleProducto.aspx" />
     <Content Include="Public\Home.aspx" />
     <Content Include="Recursos\Css\estilos.css" />
+    <Content Include="Recursos\Css\FormularioEstilo.css" />
     <Content Include="Recursos\Js\Scripts.js" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -117,6 +119,13 @@
     </Compile>
     <Compile Include="Admin\Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\FormularioArticulos.aspx.cs">
+      <DependentUpon>FormularioArticulos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\FormularioArticulos.aspx.designer.cs">
+      <DependentUpon>FormularioArticulos.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\GestionArticulos.aspx.cs">
       <DependentUpon>GestionArticulos.aspx</DependentUpon>

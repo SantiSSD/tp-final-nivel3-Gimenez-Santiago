@@ -30,6 +30,14 @@ namespace CatalogoArticulos.AccesoDatos
             _comando.Parameters.Clear();
             _comando.CommandText = consulta;
         }
+
+        public void setearConsultaSP(string sp)
+        {
+            _comando.CommandType = System.Data.CommandType.StoredProcedure;
+            _comando.Parameters.Clear();
+            _comando.CommandText = sp;
+
+        }
         public void ejecutarLectura()
         {
             _comando.Connection = _conexion;

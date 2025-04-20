@@ -11,11 +11,11 @@ using Dominio;
 
 namespace CatalogoArticulos.AccesoDatos
 {
-    public class ArticuloRepository
+    public class ArticulosNegocio
     {
         private readonly AccesoDatos _datos;
 
-        public ArticuloRepository (AccesoDatos datos)
+        public ArticulosNegocio(AccesoDatos datos)
         {
             _datos = datos;
         }
@@ -26,40 +26,40 @@ namespace CatalogoArticulos.AccesoDatos
             try
             {
 
-                _datos.setearConsulta ( "SELECT a.Id, a.Codigo, a.Nombre, a.Descripcion, a.IdMarca, m.Descripcion AS Marca, a.IdCategoria, c.Descripcion AS Categoria, a.Precio, a.ImagenUrl FROM Articulos a JOIN Marcas m ON a.IdMarca = m.Id JOIN Categorias c ON a.IdCategoria = c.Id;");
+                _datos.setearConsulta("SELECT a.Id, a.Codigo, a.Nombre, a.Descripcion, a.IdMarca, m.Descripcion AS Marca, a.IdCategoria, c.Descripcion AS Categoria, a.Precio, a.ImagenUrl FROM Articulos a JOIN Marcas m ON a.IdMarca = m.Id JOIN Categorias c ON a.IdCategoria = c.Id;");
                 _datos.ejecutarLectura();
-              
-                
 
-                
+
+
+
                 while (_datos.Lector.Read())
                 {
                     Articulo articulo = new Articulo();
 
-                    articulo.Id = _datos.Lector.GetInt32(0); 
+                    articulo.Id = _datos.Lector.GetInt32(0);
                     articulo.Codigo = _datos.Lector["Codigo"].ToString();
                     articulo.Nombre = _datos.Lector["Nombre"].ToString();
                     articulo.Descripcion = _datos.Lector["Descripcion"].ToString();
 
-                    
-                    articulo.IdMarca = _datos.Lector.GetInt32(4); 
-                    articulo.IdCategoria = _datos.Lector.GetInt32(6); 
+
+                    articulo.IdMarca = _datos.Lector.GetInt32(4);
+                    articulo.IdCategoria = _datos.Lector.GetInt32(6);
 
                     articulo.Marca = new Marca
                     {
                         Id = articulo.IdMarca,
-                        Descripcion = _datos.Lector["Marca"].ToString() 
+                        Descripcion = _datos.Lector["Marca"].ToString()
                     };
 
                     articulo.Categoria = new Categoria
                     {
                         Id = articulo.IdCategoria,
-                        Descripcion = _datos.Lector["Categoria"].ToString() 
+                        Descripcion = _datos.Lector["Categoria"].ToString()
                     };
 
                     articulo.Precio = _datos.Lector.GetDecimal(8);
 
-                  
+
                     if (!(_datos.Lector["ImagenUrl"] is DBNull))
                         articulo.ImagenUrl = _datos.Lector["ImagenUrl"].ToString();
                     articulos.Add(articulo);
@@ -71,27 +71,83 @@ namespace CatalogoArticulos.AccesoDatos
             }
             catch (Exception ex)
             {
-                
+
                 throw new Exception("Error al obtener los artículos de la base de datos.", ex);
             }
         }
-        public void InsertarArticulo(Articulo nuevo)
+
+        public List<Articulo> ObtenerArticulosConSP()
         {
-            AccesoDatos datos = new AccesoDatos();
+            List<Articulo> lista = new List<Articulo>();
+
+
             try
             {
-                datos.setearConsulta("INSERT INTO Articulos (Codigo, Nombre, Descripcion, IdMarca, IdCategoria,ImagenUrl, Precio) VALUES (@codigo, @nombre, @descripcion, @idMarca, @idCategoria,@Imagenurl, @precio)");
+
+                _datos.setearConsultaSP("ObtenerArticulosConSP");
+                _datos.ejecutarLectura();
+                while (_datos.Lector.Read())
+                {
+                    Articulo articulo = new Articulo
+                    {
+                        Id = _datos.Lector.GetInt32(0),
+                        Codigo = _datos.Lector["Codigo"].ToString(),
+                        Nombre = _datos.Lector["Nombre"].ToString(),
+                        Descripcion = _datos.Lector["Descripcion"].ToString(),
+                        IdMarca = _datos.Lector.GetInt32(4),
+                        IdCategoria = _datos.Lector.GetInt32(6),
+                        Marca = new Marca
+                        {
+                            Id = _datos.Lector.GetInt32(4),
+                            Descripcion = _datos.Lector["Marca"].ToString()
+                        },
+                        Categoria = new Categoria
+                        {
+                            Id = _datos.Lector.GetInt32(6),
+                            Descripcion = _datos.Lector["Categoria"].ToString()
+                        },
+                        Precio = _datos.Lector.GetDecimal(8)
+                    };
 
 
-                datos.setearParametro("@codigo", nuevo.Codigo);
-                datos.setearParametro("@nombre", nuevo.Nombre);
-                datos.setearParametro("@descripcion", nuevo.Descripcion);
-                datos.setearParametro("@idMarca", nuevo.Marca.Id);
-                datos.setearParametro("@idCategoria", nuevo.Categoria.Id);
-                datos.setearParametro("@Imagenurl", nuevo.ImagenUrl);
-                datos.setearParametro("@precio", nuevo.Precio);
+                    if (!_datos.Lector.IsDBNull(_datos.Lector.GetOrdinal("ImagenUrl")))
+                    {
+                        articulo.ImagenUrl = _datos.Lector["ImagenUrl"].ToString();
+                    }
 
-                datos.ejecutarAccion();
+                    lista.Add(articulo);
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al filtrar los artículos en la base de datos.", ex);
+            }
+            finally 
+            {
+
+                _datos.CerrarConexion();
+            }
+
+        }
+        public void InsertarArticulo(Articulo nuevo)
+        {
+
+            try
+            {
+                _datos.setearConsulta("INSERT INTO Articulos (Codigo, Nombre, Descripcion, IdMarca, IdCategoria,ImagenUrl, Precio) VALUES (@codigo, @nombre, @descripcion, @idMarca, @idCategoria,@Imagenurl, @precio)");
+
+
+                _datos.setearParametro("@codigo", nuevo.Codigo);
+                _datos.setearParametro("@nombre", nuevo.Nombre);
+                _datos.setearParametro("@descripcion", nuevo.Descripcion);
+                _datos.setearParametro("@idMarca", nuevo.Marca.Id);
+                _datos.setearParametro("@idCategoria", nuevo.Categoria.Id);
+                _datos.setearParametro("@Imagenurl", nuevo.ImagenUrl);
+                _datos.setearParametro("@precio", nuevo.Precio);
+
+                _datos.ejecutarAccion();
             }
             catch (Exception ex)
             {
@@ -100,27 +156,26 @@ namespace CatalogoArticulos.AccesoDatos
             }
             finally
             {
-                datos.CerrarConexion();
+                _datos.CerrarConexion();
             }
 
         }
         public void ModificarArticulo(Articulo articulo)
         {
-            AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setearConsulta("UPDATE Articulos SET Codigo = @codigo, Nombre = @nombre, Descripcion = @descripcion, IdMarca = @idMarca, IdCategoria = @idCategoria, ImagenUrl = @imagenUrl, Precio = @precio WHERE Id = @id");
+                _datos.setearConsulta("UPDATE Articulos SET Codigo = @codigo, Nombre = @nombre, Descripcion = @descripcion, IdMarca = @idMarca, IdCategoria = @idCategoria, ImagenUrl = @imagenUrl, Precio = @precio WHERE Id = @id");
 
-                datos.setearParametro("@codigo", articulo.Codigo);
-                datos.setearParametro("@nombre", articulo.Nombre);
-                datos.setearParametro("@descripcion", articulo.Descripcion);
-                datos.setearParametro("@idMarca", articulo.Marca.Id);
-                datos.setearParametro("@idCategoria", articulo.Categoria.Id);
-                datos.setearParametro("@imagenUrl", articulo.ImagenUrl);
-                datos.setearParametro("@precio", articulo.Precio);
-                datos.setearParametro("@id", articulo.Id); 
+                _datos.setearParametro("@codigo", articulo.Codigo);
+                _datos.setearParametro("@nombre", articulo.Nombre);
+                _datos.setearParametro("@descripcion", articulo.Descripcion);
+                _datos.setearParametro("@idMarca", articulo.Marca.Id);
+                _datos.setearParametro("@idCategoria", articulo.Categoria.Id);
+                _datos.setearParametro("@imagenUrl", articulo.ImagenUrl);
+                _datos.setearParametro("@precio", articulo.Precio);
+                _datos.setearParametro("@id", articulo.Id);
 
-                datos.ejecutarAccion();
+                _datos.ejecutarAccion();
             }
             catch (Exception ex)
             {
@@ -128,7 +183,7 @@ namespace CatalogoArticulos.AccesoDatos
             }
             finally
             {
-                datos.CerrarConexion();
+                _datos.CerrarConexion();
             }
         }
 
@@ -137,9 +192,9 @@ namespace CatalogoArticulos.AccesoDatos
             try
             {
                 AccesoDatos datos = new AccesoDatos();
-                datos.setearConsulta("delete from ARTICULOS where id = @id");
-                datos.setearParametro("@id", id);
-                datos.ejecutarAccion();
+                _datos.setearConsulta("delete from ARTICULOS where id = @id");
+                _datos.setearParametro("@id", id);
+                _datos.ejecutarAccion();
             }
             catch (Exception ex)
             {
@@ -152,7 +207,7 @@ namespace CatalogoArticulos.AccesoDatos
         {
             List<Articulo> lista = new List<Articulo>();
             AccesoDatos datos = new AccesoDatos();
-                 
+
             try
             {
                 string consulta = "SELECT a.Id, a.Codigo, a.Nombre, a.Descripcion, a.IdMarca, m.Descripcion AS Marca, a.IdCategoria, c.Descripcion AS Categoria, a.Precio, a.ImagenUrl FROM Articulos a JOIN Marcas m ON a.IdMarca = m.Id JOIN Categorias c ON a.IdCategoria = c.Id AND ";
@@ -207,37 +262,37 @@ namespace CatalogoArticulos.AccesoDatos
                         throw new Exception("Campo de búsqueda no reconocido");
                 }
 
-                datos.setearConsulta(consulta);
-                datos.setearParametro("@filtro", filtro); 
-                datos.ejecutarLectura();
+                _datos.setearConsulta(consulta);
+                _datos.setearParametro("@filtro", filtro);
+                _datos.ejecutarLectura();
 
-                while (datos.Lector.Read())
+                while (_datos.Lector.Read())
                 {
                     Articulo articulo = new Articulo
                     {
-                        Id = datos.Lector.GetInt32(0),
-                        Codigo = datos.Lector["Codigo"].ToString(),
-                        Nombre = datos.Lector["Nombre"].ToString(),
-                        Descripcion = datos.Lector["Descripcion"].ToString(),
-                        IdMarca = datos.Lector.GetInt32(4),
-                        IdCategoria = datos.Lector.GetInt32(6),
+                        Id = _datos.Lector.GetInt32(0),
+                        Codigo = _datos.Lector["Codigo"].ToString(),
+                        Nombre = _datos.Lector["Nombre"].ToString(),
+                        Descripcion = _datos.Lector["Descripcion"].ToString(),
+                        IdMarca = _datos.Lector.GetInt32(4),
+                        IdCategoria = _datos.Lector.GetInt32(6),
                         Marca = new Marca
                         {
-                            Id = datos.Lector.GetInt32(4),
-                            Descripcion = datos.Lector["Marca"].ToString()
+                            Id = _datos.Lector.GetInt32(4),
+                            Descripcion = _datos.Lector["Marca"].ToString()
                         },
-                        Categoria = new Categoria   
+                        Categoria = new Categoria
                         {
-                            Id = datos.Lector.GetInt32(6), 
-                            Descripcion = datos.Lector["Categoria"].ToString() 
+                            Id = _datos.Lector.GetInt32(6),
+                            Descripcion = _datos.Lector["Categoria"].ToString()
                         },
-                        Precio = datos.Lector.GetDecimal(8)
+                        Precio = _datos.Lector.GetDecimal(8)
                     };
 
-                    
-                    if (!datos.Lector.IsDBNull(datos.Lector.GetOrdinal("ImagenUrl")))
+
+                    if (!_datos.Lector.IsDBNull(_datos.Lector.GetOrdinal("ImagenUrl")))
                     {
-                        articulo.ImagenUrl = datos.Lector["ImagenUrl"].ToString();
+                        articulo.ImagenUrl = _datos.Lector["ImagenUrl"].ToString();
                     }
 
                     lista.Add(articulo);

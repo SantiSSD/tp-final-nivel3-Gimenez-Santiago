@@ -15,7 +15,7 @@
                                 <img src='<%# GetImageUrl(Eval("ImagenUrl")) %>'
                                     class="card-img-top product-img"
                                     alt='<%# Eval("Nombre") %>'
-                                    onerror="this.onerror=null;this.src='/images/placeholder.jpg';" />
+                                    onerror="this.onerror=null;this.src='https://images.wondershare.com/repairit/aticle/2021/07/resolve-images-not-showing-problem-1.jpg';" />
                             </div>
                             <div class="card-body">
                                 <h5 class="card-title text-truncate"><%# Eval("Nombre") %></h5>
