@@ -5,7 +5,7 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
+    <asp:ScriptManager runat="server" />
     <div class="contenedor-formulario">
         <div class="formulario-articulo">
             <!-- ID -->
@@ -66,14 +66,15 @@
                 <asp:TextBox ID="txtDescripcion" CssClass="form-control" TextMode="MultiLine" Rows="5" runat="server"></asp:TextBox>
             </div>
 
-            <div class="mb-3">
-                <label for="txtImagenUrl" class="form-label">Imagen del producto (URL)</label>
-                <asp:TextBox ID="txtImagenUrl" CssClass="form-control" runat="server" AutoPostBack="true"
-                    OnTextChanged="txtImagenUrl_TextChanged"></asp:TextBox>
-            </div>
-            <asp:Image ImageUrl="https://images.wondershare.com/repairit/aticle/2021/07/resolve-images-not-showing-problem-1.jpg" ID="imgProducto" runat="server" Visible="true" Width="400px" long="200px" />
-
-
+            <asp:UpdatePanel runat="server">
+                <ContentTemplate>
+                    <div class="mb-3">
+                        <label for="txtImagenUrl" class="form-label">Imagen del producto (URL)</label>
+                        <asp:TextBox ID="txtImagenUrl" CssClass="form-control" runat="server" AutoPostBack="true" OnTextChanged="txtImagenUrl_TextChanged"></asp:TextBox>
+                    </div>
+                    <asp:Image ImageUrl="https://images.wondershare.com/repairit/aticle/2021/07/resolve-images-not-showing-problem-1.jpg" ID="imgProducto" runat="server" Visible="true" Width="400px" long="200px" />
+                </ContentTemplate>
+            </asp:UpdatePanel>
 
         </div>
     </div>
