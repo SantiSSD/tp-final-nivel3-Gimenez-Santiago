@@ -2,6 +2,52 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../Recursos/Css/FormularioEstilo.css" rel="stylesheet" />
+    <script>
+        function formatearPrecio(input) {
+            // Obtener posición actual del cursor
+            let startPos = input.selectionStart;
+            let endPos = input.selectionEnd;
+
+            // Obtener valor y limpiar formato actual
+            let value = input.value.replace(/\./g, '').replace(',', '.');
+
+            // Permitir borrado completo
+            if (value === '') {
+                input.value = '';
+                return;
+            }
+
+            // Validar que sea número
+            if (isNaN(value)) {
+                value = value.substring(0, value.length - 1);
+                if (isNaN(value)) {
+                    input.value = '';
+                    return;
+                }
+            }
+
+            // Convertir a número y formatear
+            let number = parseFloat(value);
+            if (isNaN(number)) {
+                input.value = '';
+                return;
+            }
+
+            // Formatear como número argentino
+            let partes = number.toFixed(2).split('.');
+            let entero = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+            let decimal = partes[1];
+
+            // Actualizar valor
+            input.value = entero + ',' + decimal;
+
+            // Restaurar posición del cursor
+            let newLength = input.value.length;
+            let delta = newLength - input.value.length;
+            input.setSelectionRange(startPos + delta, endPos + delta);
+        }
+    </script>
+
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
@@ -55,9 +101,12 @@
             <!-- Precio -->
             <div class="mb-3">
                 <label for="txtPrecio" class="form-label">Precio</label>
-                <asp:TextBox ID="txtPrecio" CssClass="form-control" runat="server" TextMode="Number" step="0.01"></asp:TextBox>
-                <asp:RequiredFieldValidator runat="server" ControlToValidate="txtPrecio" ErrorMessage="El precio es requerido" CssClass="text-danger"></asp:RequiredFieldValidator>
-                <asp:RangeValidator runat="server" ControlToValidate="txtPrecio" Type="Double" MinimumValue="0,01" MaximumValue="999999,99" CssClass="text-danger" ErrorMessage="El precio debe ser entre 0,01 y 999,999,99"></asp:RangeValidator>
+                <asp:TextBox ID="txtPrecio" CssClass="form-control precio-argentino" runat="server" placeholder="0,00" onkeyup="formatearPrecio(this)" onblur="formatearPrecio(this)"></asp:TextBox>
+                <asp:RegularExpressionValidator runat="server" ControlToValidate="txtPrecio"
+                    ValidationExpression="^\d{1,3}(\.\d{3})*,\d{2}$"
+                    ErrorMessage="Formato: 999.999,99"
+                    CssClass="text-danger" Display="Dynamic">
+                </asp:RegularExpressionValidator>
             </div>
 
             <!-- Descripción -->

@@ -105,6 +105,7 @@
     .btn-cancelar:hover {
         background-color: #c82333; /* Rojo oscuro al pasar mouse */
     }
+
     .btn-aceptar:active, .btn-cancelar:active {
         transform: scale(0.98); /* Efecto de presión */
     }
@@ -149,4 +150,16 @@
         gap: 1rem;
         white-space: nowrap; /* Evita saltos de línea */
     }
+
+    /*formato de precio*/
+    /* Agrega al final de tu archivo CSS */
+    .precio-argentino {
+        text-align: right;
+        font-family: 'Courier New', monospace;
+    }
+
+        .precio-argentino::placeholder {
+            color: #ccc;
+            opacity: 1;
+        }
 }

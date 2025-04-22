@@ -159,6 +159,36 @@ namespace CatalogoArticulos.AccesoDatos
                 _datos.CerrarConexion();
             }
 
+
+        }
+
+        public void InsertarArticuloConSP(Articulo nuevo)
+        {
+
+            try
+            {
+                _datos.setearConsultaSP("AltaArticuloConSP ");
+
+
+                _datos.setearParametro("@codigo", nuevo.Codigo);
+                _datos.setearParametro("@nombre", nuevo.Nombre);
+                _datos.setearParametro("@descripcion", nuevo.Descripcion);
+                _datos.setearParametro("@idMarca", nuevo.Marca.Id);
+                _datos.setearParametro("@idCategoria", nuevo.Categoria.Id);
+                _datos.setearParametro("@Imagenurl", nuevo.ImagenUrl);
+                _datos.setearParametro("@precio", nuevo.Precio);
+
+                _datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            finally
+            {
+                _datos.CerrarConexion();
+            }
         }
         public void ModificarArticulo(Articulo articulo)
         {
