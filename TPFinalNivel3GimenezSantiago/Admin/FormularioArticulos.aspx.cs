@@ -48,6 +48,7 @@ namespace TPFinalNivel3GimenezSantiago.Admin
                     txtId.Text = seleccionado.Id.ToString();
                     txtCodigo.Text = seleccionado.Codigo;
                     txtNombre.Text = seleccionado.Nombre;
+                    txtDescripcion.Text = seleccionado.Descripcion;
                     txtPrecio.Text = seleccionado.Precio.ToString("N2", CultureInfo.GetCultureInfo("es-AR"));
                     txtImagenUrl.Text = seleccionado.ImagenUrl;
                     if (!string.IsNullOrEmpty(seleccionado.ImagenUrl))
