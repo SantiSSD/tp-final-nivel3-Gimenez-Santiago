@@ -13,9 +13,11 @@ namespace TPFinalNivel3GimenezSantiago.Admin
 {
     public partial class FormularioArticulos : System.Web.UI.Page
     {
+        public bool ConfirmarEliminacion { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
             MarcasCategorias ObtenerMarcasCategorias = new MarcasCategorias();
+            ConfirmarEliminacion = false;
             try
             {
                 //configuración inicial de la pantalla 
@@ -104,6 +106,28 @@ namespace TPFinalNivel3GimenezSantiago.Admin
             }
         }
 
+        protected void btnEliminar_Click(object sender, EventArgs e)
+        {
+            ConfirmarEliminacion = true;
+        }
+
+        protected void btnConfirmarEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (chkConfirmarEleminacion.Checked)
+                {
+                    ArticulosNegocio negocio = new ArticulosNegocio(new AccesoDatos());
+                    negocio.eliminar(int.Parse(txtId.Text));
+                    Response.Redirect("GestionArticulos.aspx", false);
+                }
+            }
+            catch (Exception ex)
+            {
+                Session.Add("Error", ex);
+                throw;
+            }
+        }
     }
 
 }

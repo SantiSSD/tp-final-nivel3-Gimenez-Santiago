@@ -8,6 +8,8 @@
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
     margin: 20px auto;
     max-width: 1200px; /* Ancho máximo del formulario */
+    flex-wrap: wrap;
+    position: relative;
 }
 
 /* COLUMNA IZQUIERDA (contiene todos los campos excepto precio/descripción) */
@@ -60,106 +62,133 @@
 }
 
 .acciones-formulario {
-    margin-top: 1rem; /* Reducir espacio superior */
-    display: flex;
-    gap: 1rem;
-    justify-content: flex-start; /* Alineación izquierda */
-    padding-top: 1rem;
-    border-top: 1px solid #eee;
-}
-/* BOTONES - Elimina la segunda declaración duplicada */
-.acciones-formulario {
     margin-top: 1rem;
-    display: flex;
-    gap: 1rem;
-    justify-content: flex-start; /* Esto los alinea a la izquierda */
     padding-top: 1rem;
     border-top: 1px solid #eee;
 }
 
-.btn-aceptar {
-    background-color: #28a745; /* Verde */
-    color: white;
-    border: none;
+/* Grupo de botones principales */
+.grupo-botones-principales {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+/* Estilo base para TODOS los botones */
+.btn {
     padding: 10px 20px;
     border-radius: 5px;
+    text-decoration: none;
+    text-align: center;
+    transition: all 0.3s ease;
+    display: inline-block;
     cursor: pointer;
-    transition: background-color 0.3s;
+    font-weight: 500;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    border: none;
+    min-width: 120px; /* Mismo ancho mínimo */
+    white-space: nowrap;
+    flex: 1; /* Ocupan espacio igual */
+    max-width: max-content; /* No se estiren demasiado */
 }
 
-    .btn-aceptar:hover {
-        background-color: #218838; /* Verde oscuro al pasar mouse */
-    }
+/* Mantén los colores específicos */
+.btn-aceptar {
+    background-color: #4CAF50;
+    color: white;
+}
 
 .btn-cancelar {
-    background-color: #dc3545; /* Rojo */
+    background-color: #1976D2;
     color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    text-decoration: none; /* Quita subrayado de link */
-    text-align: center;
-    transition: background-color 0.3s;
 }
 
-    .btn-cancelar:hover {
-        background-color: #c82333; /* Rojo oscuro al pasar mouse */
-    }
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+    margin-left: auto;
+}
 
-    .btn-aceptar:active, .btn-cancelar:active {
-        transform: scale(0.98); /* Efecto de presión */
-    }
+/* Hover states (mantén los que tienes) */
+.btn-aceptar:hover {
+    background-color: #388E3C;
+}
+
+.btn-cancelar:hover {
+    background-color: #0D47A1;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Panel de confirmación - MODIFICA así: */
+.confirmacion-eliminar {
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    background: white;
+    padding: 1rem;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
 
 /* RESPONSIVE Moviles */
 @media (max-width: 992px) {
     .contenedor-formulario {
         flex-direction: column;
         gap: 0;
-        position: relative; /* Necesario para el posicionamiento absoluto */
         padding: 15px;
-        padding-bottom: 100px; /* Espacio para los botones abajo */
+        display: flex;
+        min-height: 100vh;
+        box-sizing: border-box;
+        /* ➕ añade posición relativa y espacio inferior
+       para que no se “coma” contenido al quedar absoluto */
+        position: relative;
+        padding-bottom: 100px; /* ajusta según la altura total de botones */
     }
 
     .form-columna.derecha {
+        /* igual que antes */
         width: 100%;
-        border-left: 0;
+        padding-top: 0;
+        flex-grow: 1;
+        border-left : none;
         padding-left: 0;
-        border-top: 1px solid #eee;
-        padding-top: 1rem;
     }
 
-    /* ELIMINA el 'order' y 'flex-grow' de formulario-articulo */
-    .formulario-articulo {
-        padding-bottom: 1rem;
-    }
-
-    /* NUEVO ESTILO PARA BOTONES EN MÓVIL */
+    /* CONTENEDOR DE BOTONES: ahora absoluto al fondo */
     .acciones-formulario {
         position: absolute;
-        bottom: 20px;
-        left: 50%; /* Mueve el inicio al 50% del contenedor */
-        transform: translateX(-50%); /* Corrige el centrado */
-        width: auto; /* Ancho según contenido */
-        max-width: 100%; /* No exceder el ancho disponible */
-        background: white;
-        padding: 1rem;
-        margin-top: 2rem;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 1rem 0;
         border-top: 1px solid #eee;
+        background: white;
+        margin-top: 0; /* por si acaso */
+    }
+
+    .grupo-botones-principales {
         display: flex;
-        justify-content: center; /* Centra los botones internamente */
-        gap: 1rem;
-        white-space: nowrap; /* Evita saltos de línea */
+        flex-direction: row; /* fila en lugar de columna */
+        gap: 1rem; /* un poco más de separación */
     }
 
-    /*formato de precio*/
-    /* Agrega al final de tu archivo CSS */
-    .precio-argentino {
-        text-align: right;
-        font-family: 'Courier New', monospace;
+    .btn {
+        flex: 1; /* todos iguales */
+        width: auto; /* quita el 100% estricto */
+        margin: 0; /* ya no hace falta vertical */
     }
-
-        .precio-argentino::placeholder {
-            color: #ccc;
-            opacity: 1;
-        }
+    /* tu panel de confirmación igual que antes */
+    .confirmacion-eliminar {
+        margin-top: 1rem;
+        /* … */
+    }
+    /* … */
 }
+

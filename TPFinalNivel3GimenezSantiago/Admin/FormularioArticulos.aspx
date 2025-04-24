@@ -6,9 +6,9 @@
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    
+
     <asp:ScriptManager runat="server" />
-    
+
     <div class="contenedor-formulario">
         <div class="formulario-articulo">
             <!-- ID -->
@@ -44,13 +44,32 @@
                 <label for="ddlMarca" class="form-label">Marca</label>
                 <asp:DropDownList ID="ddlMarca" CssClass="form-select" runat="server"></asp:DropDownList>
                 <asp:RequiredFieldValidator runat="server" ControlToValidate="ddlMarca" ErrorMessage="Seleccione una marca" CssClass="text-danger" InitialValue=""></asp:RequiredFieldValidator>
-
+                <div>
+                </div>
                 <!-- Botones -->
                 <div class="acciones-formulario">
-                    <asp:Button Text="Aceptar" ID="btnAceptar" CssClass="btn btn-aceptar"
-                        OnClick="btnAceptar_Click" runat="server" />
+                    <div class="grupo-botones-principales">
+                        <asp:Button Text="Aceptar" ID="btnAceptar" CssClass="btn btn-aceptar" OnClick="btnAceptar_Click" runat="server" />
+                        <a href="GestionArticulos.aspx" class="btn btn-cancelar">Cancelar</a>
 
-                    <a href="GestionArticulos.aspx" class="btn btn-cancelar">Cancelar</a>
+                        <asp:UpdatePanel runat="server">
+                            <ContentTemplate>
+                                <asp:Button Text="Eliminar" ID="btnEliminar" OnClick="btnEliminar_Click" CssClass="btn btn-danger" runat="server" />
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+                    </div>
+
+                    <asp:UpdatePanel runat="server">
+                        <ContentTemplate>
+                            <% if (ConfirmarEliminacion)
+                                {%>
+                            <div class="confirmacion-eliminar">
+                                <asp:CheckBox Text="Confirmar Eliminación" ID="chkConfirmarEleminacion" runat="server" />
+                                <asp:Button Text="Eliminar" ID="btnConfirmarEliminar" OnClick="btnConfirmarEliminar_Click" CssClass="btn btn-outline-danger" runat="server" />
+                            </div>
+                            <% }%>
+                        </ContentTemplate>
+                    </asp:UpdatePanel>
                 </div>
             </div>
         </div>
@@ -80,7 +99,8 @@
                     <asp:Image ImageUrl="https://images.wondershare.com/repairit/aticle/2021/07/resolve-images-not-showing-problem-1.jpg" ID="imgProducto" runat="server" Visible="true" Width="400px" long="200px" />
                 </ContentTemplate>
             </asp:UpdatePanel>
-
         </div>
     </div>
+
+
 </asp:Content>
