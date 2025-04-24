@@ -1,57 +1,14 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/MiMaster.Master" AutoEventWireup="true" CodeBehind="FormularioArticulos.aspx.cs" Inherits="TPFinalNivel3GimenezSantiago.Admin.FormularioArticulos" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/MiMaster.Master" AutoEventWireup="true" CodeBehind="FormularioArticulos.aspx.cs" Inherits="TPFinalNivel3GimenezSantiago.Admin.FormularioArticulos" Culture="es-AR" UICulture="es-AR" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <link href="../Recursos/Css/FormularioEstilo.css" rel="stylesheet" />
-    <script>
-        function formatearPrecio(input) {
-            // Obtener posición actual del cursor
-            let startPos = input.selectionStart;
-            let endPos = input.selectionEnd;
-
-            // Obtener valor y limpiar formato actual
-            let value = input.value.replace(/\./g, '').replace(',', '.');
-
-            // Permitir borrado completo
-            if (value === '') {
-                input.value = '';
-                return;
-            }
-
-            // Validar que sea número
-            if (isNaN(value)) {
-                value = value.substring(0, value.length - 1);
-                if (isNaN(value)) {
-                    input.value = '';
-                    return;
-                }
-            }
-
-            // Convertir a número y formatear
-            let number = parseFloat(value);
-            if (isNaN(number)) {
-                input.value = '';
-                return;
-            }
-
-            // Formatear como número argentino
-            let partes = number.toFixed(2).split('.');
-            let entero = partes[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-            let decimal = partes[1];
-
-            // Actualizar valor
-            input.value = entero + ',' + decimal;
-
-            // Restaurar posición del cursor
-            let newLength = input.value.length;
-            let delta = newLength - input.value.length;
-            input.setSelectionRange(startPos + delta, endPos + delta);
-        }
-    </script>
 
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    
     <asp:ScriptManager runat="server" />
+    
     <div class="contenedor-formulario">
         <div class="formulario-articulo">
             <!-- ID -->
@@ -90,7 +47,9 @@
 
                 <!-- Botones -->
                 <div class="acciones-formulario">
-                    <asp:Button Text="Aceptar" ID="btnAceptar" CssClass="btn btn-aceptar" OnClick="btnAceptar_Click" runat="server" />
+                    <asp:Button Text="Aceptar" ID="btnAceptar" CssClass="btn btn-aceptar"
+                        OnClick="btnAceptar_Click" runat="server" />
+
                     <a href="GestionArticulos.aspx" class="btn btn-cancelar">Cancelar</a>
                 </div>
             </div>
@@ -98,15 +57,12 @@
 
         <!-- Columna derecha (precio y descripción) -->
         <div class="form-columna derecha">
+
             <!-- Precio -->
             <div class="mb-3">
                 <label for="txtPrecio" class="form-label">Precio</label>
-                <asp:TextBox ID="txtPrecio" CssClass="form-control precio-argentino" runat="server" placeholder="0,00" onkeyup="formatearPrecio(this)" onblur="formatearPrecio(this)"></asp:TextBox>
-                <asp:RegularExpressionValidator runat="server" ControlToValidate="txtPrecio"
-                    ValidationExpression="^\d{1,3}(\.\d{3})*,\d{2}$"
-                    ErrorMessage="Formato: 999.999,99"
-                    CssClass="text-danger" Display="Dynamic">
-                </asp:RegularExpressionValidator>
+                <asp:TextBox ID="txtPrecio" CssClass="form-control" runat="server">
+                </asp:TextBox>
             </div>
 
             <!-- Descripción -->

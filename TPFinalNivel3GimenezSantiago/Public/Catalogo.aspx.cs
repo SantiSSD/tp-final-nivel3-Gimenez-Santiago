@@ -21,10 +21,6 @@ namespace TPFinalNivel3GimenezSantiago.Public
                 repArticulos.DataSource = ListaArticulos;
                 repArticulos.DataBind();
             }
-
-
-
-
         }
         public string GetImageUrl(object imagenUrl)
         {

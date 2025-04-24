@@ -27,7 +27,7 @@
                                 </div>
 
                                 <div class="d-flex align-items-center justify-content-between">
-                                    <h4 class="text-primary mb-0">$<%# Eval("Precio", "{0:N2}") %></h4>
+                                 <h4 class="text-primary mb-0">$<%# string.Format(new System.Globalization.CultureInfo("es-AR"), "{0:N2}", Eval("Precio")) %></h4>
                                     <asp:Button ID="btnDetalle" runat="server" Text="Ver detalle" CssClass="btn btn-sm btn-outline-primary" CommandArgument='<%# Eval("Id") %>' OnClick="btnDetalle_Click" />
                                 </div>
                             </div>

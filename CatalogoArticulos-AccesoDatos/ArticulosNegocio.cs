@@ -20,17 +20,21 @@ namespace CatalogoArticulos.AccesoDatos
             _datos = datos;
         }
 
-        public List<Articulo> ObtenerArticulos()
+        public List<Articulo> ObtenerArticulos(string id = "")
         {
             List<Articulo> articulos = new List<Articulo>();
             try
             {
 
-                _datos.setearConsulta("SELECT a.Id, a.Codigo, a.Nombre, a.Descripcion, a.IdMarca, m.Descripcion AS Marca, a.IdCategoria, c.Descripcion AS Categoria, a.Precio, a.ImagenUrl FROM Articulos a JOIN Marcas m ON a.IdMarca = m.Id JOIN Categorias c ON a.IdCategoria = c.Id;");
+               string consulta ="SELECT a.Id, a.Codigo, a.Nombre, a.Descripcion, a.IdMarca, m.Descripcion AS Marca, a.IdCategoria, c.Descripcion AS Categoria, a.Precio, a.ImagenUrl FROM Articulos a JOIN Marcas m ON a.IdMarca = m.Id JOIN Categorias c ON a.IdCategoria = c.Id ";
+                if (!string.IsNullOrEmpty(id))
+
+                    consulta += "and a.Id = " + id;
+
+                _datos.setearConsulta(consulta);
+                                
+                
                 _datos.ejecutarLectura();
-
-
-
 
                 while (_datos.Lector.Read())
                 {
@@ -216,6 +220,34 @@ namespace CatalogoArticulos.AccesoDatos
                 _datos.CerrarConexion();
             }
         }
+
+        public void ModificarArticuloConSP(Articulo articulo)
+        {
+            try
+            {
+                _datos.setearConsultaSP("ModificarArticuloConSP");
+
+                _datos.setearParametro("@codigo", articulo.Codigo);
+                _datos.setearParametro("@nombre", articulo.Nombre);
+                _datos.setearParametro("@descripcion", articulo.Descripcion);
+                _datos.setearParametro("@idMarca", articulo.Marca.Id);
+                _datos.setearParametro("@idCategoria", articulo.Categoria.Id);
+                _datos.setearParametro("@imagenUrl", articulo.ImagenUrl);
+                _datos.setearParametro("@precio", articulo.Precio);
+                _datos.setearParametro("@id", articulo.Id);
+
+                _datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Error al modificar el artículo en la base de datos.", ex);
+            }
+            finally
+            {
+                _datos.CerrarConexion();
+            }
+        }
+
 
         public void eliminar(int id)
         {
