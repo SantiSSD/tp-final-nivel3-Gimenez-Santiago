@@ -3,18 +3,23 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
-
+    <div class="row">
+        <div class="col-6">
+            <div class="mb-3">
+                <asp:Label Text="Filtrar" runat="server" />
+                <asp:TextBox runat="server" ID="txtfiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="filtro_TextChanged" />
+            </div>
+        </div>
+    </div>
     <asp:GridView ID="dgvArticulos" CssClass="table" AutoGenerateColumns="false" runat="server"
-        DataKeyNames="Id" OnSelectedIndexChanged="dgvArticulos_SelectedIndexChanged"
-        OnPageIndexChanging="dgvArticulos_PageIndexChanging"
+        DataKeyNames="Id" OnSelectedIndexChanged="dgvArticulos_SelectedIndexChanged" OnPageIndexChanging="dgvArticulos_PageIndexChanging"
         AllowPaging="true" PageSize="5">
         <Columns>
             <asp:BoundField HeaderText="Codigo" DataField="Codigo" />
             <asp:BoundField HeaderText="Nombre" DataField="Nombre" />
             <asp:BoundField HeaderText="Categoria" DataField="Categoria" />
             <asp:BoundField HeaderText="Marca" DataField="Marca" />
-             <asp:BoundField HeaderText="Precio" DataField="Precio" DataFormatString="{0:F2}"/>
+            <asp:BoundField HeaderText="Precio" DataField="Precio" DataFormatString="{0:F2}" />
             <asp:BoundField HeaderText="Descripción" DataField="Descripcion" />
             <asp:CommandField HeaderText="Accion" ShowSelectButton="true" SelectText="✍" />
         </Columns>
