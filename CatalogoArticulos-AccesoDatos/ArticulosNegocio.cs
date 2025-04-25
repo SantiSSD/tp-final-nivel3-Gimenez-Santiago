@@ -26,14 +26,14 @@ namespace CatalogoArticulos.AccesoDatos
             try
             {
 
-               string consulta ="SELECT a.Id, a.Codigo, a.Nombre, a.Descripcion, a.IdMarca, m.Descripcion AS Marca, a.IdCategoria, c.Descripcion AS Categoria, a.Precio, a.ImagenUrl FROM Articulos a JOIN Marcas m ON a.IdMarca = m.Id JOIN Categorias c ON a.IdCategoria = c.Id ";
+                string consulta = "SELECT a.Id, a.Codigo, a.Nombre, a.Descripcion, a.IdMarca, m.Descripcion AS Marca, a.IdCategoria, c.Descripcion AS Categoria, a.Precio, a.ImagenUrl FROM Articulos a JOIN Marcas m ON a.IdMarca = m.Id JOIN Categorias c ON a.IdCategoria = c.Id ";
                 if (!string.IsNullOrEmpty(id))
 
                     consulta += "and a.Id = " + id;
 
                 _datos.setearConsulta(consulta);
-                                
-                
+
+
                 _datos.ejecutarLectura();
 
                 while (_datos.Lector.Read())
@@ -128,7 +128,7 @@ namespace CatalogoArticulos.AccesoDatos
             {
                 throw new Exception("Error al filtrar los artículos en la base de datos.", ex);
             }
-            finally 
+            finally
             {
 
                 _datos.CerrarConexion();
@@ -316,6 +316,36 @@ namespace CatalogoArticulos.AccesoDatos
                                 break;
                             case "Contiene":
                                 consulta += "a.Descripcion LIKE '%' + @filtro + '%'";
+                                break;
+                        }
+                        break;
+
+                    case "Marca":
+                        switch (criterio)
+                        {
+                            case "Comienza con":
+                                consulta += "m.Descripcion LIKE @filtro + '%'";
+                                break;
+                            case "Termina con":
+                                consulta += "m.Descripcion LIKE '%' + @filtro";
+                                break;
+                            case "Contiene":
+                                consulta += "m.Descripcion LIKE '%' + @filtro + '%'";
+                                break;
+                        }
+                        break;
+
+                    case "Categoria":
+                        switch (criterio)
+                        {
+                            case "Comienza con":
+                                consulta += "c.Descripcion LIKE @filtro + '%'";
+                                break;
+                            case "Termina con":
+                                consulta += "c.Descripcion LIKE '%' + @filtro";
+                                break;
+                            case "Contiene":
+                                consulta += "c.Descripcion LIKE '%' + @filtro + '%'";
                                 break;
                         }
                         break;
