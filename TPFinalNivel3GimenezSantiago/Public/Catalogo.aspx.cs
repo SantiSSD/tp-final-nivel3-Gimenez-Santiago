@@ -14,6 +14,12 @@ namespace TPFinalNivel3GimenezSantiago.Public
         public List<Articulo> ListaArticulos { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["usuario"] == null)
+            {
+                Session.Add("error", "Debes loguearte para pasar");
+                Response.Redirect("~/Validaciones/Error.aspx", false);
+            }
+
                 ArticulosNegocio negocio = new ArticulosNegocio(new AccesoDatos());
                 ListaArticulos = negocio.ObtenerArticulosConSP();
             if (!IsPostBack)
