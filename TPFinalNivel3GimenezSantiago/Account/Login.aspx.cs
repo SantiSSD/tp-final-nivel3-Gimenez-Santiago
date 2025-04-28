@@ -21,12 +21,12 @@ namespace TPFinalNivel3GimenezSantiago.Account
             try
             {
                 UsuarioNegocio negocio = new UsuarioNegocio();
-                Usuario usuario = negocio.Loguear(txtUsuario.Text, txtContraseña.Text);
+                Usuario usuario = negocio.Loguear(txtEmail.Text, txtContraseña.Text);
                 if (usuario != null)
                 {
                     //Login Exitoso
                     Session.Add("usuario", usuario);
-                    Response.Redirect("~/Public/Catalogo.aspx", false);
+                    Response.Redirect("~/Account/MiPerfil.aspx", false);
                 }
                 else
                 {
@@ -37,7 +37,7 @@ namespace TPFinalNivel3GimenezSantiago.Account
             catch (Exception ex)
             {
                 Session.Add("error", ex.Message);
-               Response.Redirect("~/Validaciones/Error.aspx", false);
+                Response.Redirect("~/Validaciones/Error.aspx", false);
             }
 
         }

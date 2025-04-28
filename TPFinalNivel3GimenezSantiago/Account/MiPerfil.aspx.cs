@@ -11,7 +11,11 @@ namespace TPFinalNivel3GimenezSantiago.Account
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
-
-		}
+            if (Session["usuario"] == null)
+            {
+                Session.Add("error", "Debes loguearte para pasar");
+                Response.Redirect("~/Validaciones/Error.aspx", false);
+            }
+        }
 	}
 }

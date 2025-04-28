@@ -49,5 +49,46 @@ namespace CatalogoArticulos_AccesoDatos
                 datos.CerrarConexion();
             }
         }
+        public void RegistrarUsuario(Usuario nuevoUsuario)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setearConsulta("Select Id FROM USERS Where Email = @Email");
+                datos.setearParametro("@Email", nuevoUsuario.Email);
+                datos.ejecutarLectura();
+                if (datos.Lector.Read())
+                {
+                    throw new Exception("El email ya está registrado");
+                }
+                datos.CerrarConexion();
+
+
+                datos.setearConsultaSP("RegistrarUsuarioSP");
+
+                datos.setearParametro("@Email", nuevoUsuario.Email);
+                datos.setearParametro("@Pass", nuevoUsuario.Pass);
+                datos.setearParametro("@Nombre", nuevoUsuario.Nombre);
+                datos.setearParametro("@Apellido", nuevoUsuario.Apellido);
+                datos.setearParametro("@urlImagenPerfil", nuevoUsuario.ImagenPerfil);
+                datos.setearParametro("@Admin", nuevoUsuario.EsAdmin);
+
+                datos.ejecutarAccion();
+            }
+
+
+            catch (Exception ex)
+            {
+
+                throw new Exception("Error al registrar un nuevo usuario: " + ex.Message);
+            }
+            finally
+            {
+                datos.CerrarConexion();
+
+            }
+
+        }
+
     }
 }

@@ -1,16 +1,22 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Registro.aspx.cs" Inherits="TPFinalNivel3GimenezSantiago.Account.Registro" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/MasterPages/MiMaster.Master" AutoEventWireup="true" CodeBehind="Registro.aspx.cs" Inherits="TPFinalNivel3GimenezSantiago.Account.Registro" %>
 
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title></title>
-</head>
-<body>
-    <form id="form1" runat="server">
-        <div>
+<asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    <div class="col-4">
+        <h1>Registro de Usuario</h1>
+        <div class="mb-3">
+            <label class="form-label">Email</label>
+            <asp:TextBox runat="server" ID="txtEmail" placeholder="Email" CssClass="form-control" />
         </div>
-    </form>
-</body>
-</html>
+        <div class="mb-3">
+            <label class="form-label">Contraseña</label>
+            <asp:TextBox runat="server" placeholder="********" ID="txtContraseña" CssClass="form-control" TextMode="Password" />
+        </div>
+        <div class="mb-3">
+            <label class="form-label">Confirmar Contraseña</label>
+            <asp:TextBox runat="server" placeholder="********" ID="txtConfirmarContraseña" CssClass="form-control" TextMode="Password" />
+        </div>
+        <asp:Button Text="Registrarse" runat="server" ID="btnRegistrar" OnClick="btnRegistrar_Click" CssClass="btn btn-primary" />
+    </div>
+</asp:Content>

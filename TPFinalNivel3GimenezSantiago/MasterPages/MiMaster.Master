@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="../Recursos/Css/estilos.css" rel="stylesheet" />
-
+    <link href="../Recursos/Css/BotonesMasterPage.css" rel="stylesheet"/>
     <title>Mi Catálogo</title>
 
     <asp:ContentPlaceHolder ID="head" runat="server">
@@ -35,10 +35,25 @@
                         <li class="nav-item">
                             <asp:HyperLink NavigateUrl="~/Admin/GestionArticulos.aspx" CssClass="nav-link" runat="server">Gestionar Articulos</asp:HyperLink>
                     </ul>
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <asp:HyperLink NavigateUrl="~/Account/Login.aspx" CssClass="nav-link" runat="server">Login</asp:HyperLink>
-                    </ul>
+                   
+
+                    <div class="d-flex ms-auto gap-2 align-items-center">
+                        <asp:Panel ID="pnlNoLogueado" runat="server" CssClass="d-flex gap-2">
+                            <asp:HyperLink ID="lnkLogin" runat="server" 
+                                CssClass="btn btn-login-custom" NavigateUrl="~/Account/Login.aspx">Login</asp:HyperLink>
+                           
+                            <asp:HyperLink ID="lnkRegistro" runat="server" CssClass="btn btn-primary"
+                                NavigateUrl="~/Account/Registro.aspx">Registrarse</asp:HyperLink>
+                        </asp:Panel>
+
+                        <asp:Panel ID="pnlLogueado" runat="server" CssClass="d-flex gap-2 align-items-center" Visible="false">
+                            <asp:Image ID="imgPerfil" Style="height: 40px; width: 40px; border-radius: 50%; object-fit: cover; border: 2px solid white;"
+                                ImageUrl="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" runat="server" />
+                            
+                            <asp:LinkButton ID="btnSalir" runat="server" CssClass="btn btn-danger" 
+                             OnClick="btnSalir_Click"> Cerrar Sesión</asp:LinkButton>
+                        </asp:Panel>
+                    </div>
                 </div>
             </div>
         </nav>

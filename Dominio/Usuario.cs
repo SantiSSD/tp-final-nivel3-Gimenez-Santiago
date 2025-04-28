@@ -10,10 +10,10 @@ namespace Dominio
     public class Usuario
     {
         public int Id { get; set; }
-        public string Email { get; set; }  // Cambiado de "User" a "Email" (para coincidir con BD)
+        public string Email { get; set; } 
         public string Pass { get; set; }
-        public string Nombre { get; set; }
-        public string Apellido { get; set; }
+        public string Nombre { get; set; } = "";
+        public string Apellido { get; set; } ="";
         public string ImagenPerfil { get; set; }
         public bool EsAdmin { get; set; }  
 
@@ -27,6 +27,17 @@ namespace Dominio
             Apellido = apellido;
             ImagenPerfil = imagenPerfil;
             EsAdmin = esAdmin;
+        }
+
+        // Constructor para registro (sin ID)
+        public Usuario(string email, string pass)
+        {
+            Email = email;
+            Pass = pass;
+            Nombre = "";
+            Apellido = "";
+            ImagenPerfil = "/Recursos/Imagenes/Perfiles/default.png";
+            EsAdmin = false;
         }
     }
 }

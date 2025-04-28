@@ -8,8 +8,5 @@
         <h1 class="display-4">Bienvenido a Tienda Santi 😎</h1>
         <p class="lead slide-in">Explorá nuestros productos y descubrí lo que tenemos para vos.</p>
         <asp:HyperLink NavigateUrl="~/Public/Catalogo.aspx" CssClass="btn btn-primary btn-lg mt-3 custom-btn zoom-in"  runat="server">Ver Catálogo</asp:HyperLink>
-
-
-
     </div>
 </asp:Content>
