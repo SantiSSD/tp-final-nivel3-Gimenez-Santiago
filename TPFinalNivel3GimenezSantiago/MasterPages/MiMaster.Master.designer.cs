@@ -33,6 +33,15 @@ namespace TPFinalNivel3GimenezSantiago
         protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
+        /// Control liGestionArticulos.
+        /// </summary>
+        /// <remarks>
+        /// Campo generado automáticamente.
+        /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlGenericControl liGestionArticulos;
+
+        /// <summary>
         /// Control pnlNoLogueado.
         /// </summary>
         /// <remarks>

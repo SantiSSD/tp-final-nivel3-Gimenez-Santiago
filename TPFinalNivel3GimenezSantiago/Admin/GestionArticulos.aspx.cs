@@ -1,4 +1,5 @@
 ﻿using CatalogoArticulos.AccesoDatos;
+using CatalogoArticulos_AccesoDatos;
 using Dominio;
 using System;
 using System.Collections.Generic;
@@ -14,6 +15,7 @@ namespace TPFinalNivel3GimenezSantiago.Admin
         public bool FiltroAvanzado { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
+            Seguridad.ValidarAdmin();
             if (!IsPostBack)
             {
                 FiltroAvanzado = false;

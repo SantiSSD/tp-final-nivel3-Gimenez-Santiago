@@ -20,6 +20,7 @@ namespace TPFinalNivel3GimenezSantiago.Admin
             ConfirmarEliminacion = false;
             try
             {
+                Seguridad.ValidarAdmin();
                 //configuración inicial de la pantalla 
                 if (!IsPostBack)
                 {

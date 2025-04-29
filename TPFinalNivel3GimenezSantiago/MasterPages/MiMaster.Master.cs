@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CatalogoArticulos_AccesoDatos;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,10 +12,16 @@ namespace TPFinalNivel3GimenezSantiago
 	{
 		protected void Page_Load(object sender, EventArgs e)
 		{
-			if (!IsPostBack)
+
+            if (!IsPostBack)
 			{
 				VerificarEstadoUsuario();
+				VerificarAdmin();
 			}
+		}
+		private void VerificarAdmin() 
+		{
+			liGestionArticulos.Visible = Seguridad.EsAdmin(Session);
 		}
 
 
