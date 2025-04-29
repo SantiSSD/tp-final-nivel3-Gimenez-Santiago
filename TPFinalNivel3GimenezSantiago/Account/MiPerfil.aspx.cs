@@ -15,5 +15,10 @@ namespace TPFinalNivel3GimenezSantiago.Account
             Seguridad.ValidarSession();
 
         }
+
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

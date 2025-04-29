@@ -34,8 +34,21 @@ namespace TPFinalNivel3GimenezSantiago.Account
                     );
 
                 negocio.RegistrarUsuario(nuevoUsuario);
-                Session["registroExitoso"] = true;
-                Response.Redirect("~/Account/Login.aspx", false);
+
+                Usuario usuarioLogueado = negocio.Loguear(txtEmail.Text, txtContraseña.Text);
+                if (usuarioLogueado != null)
+                {
+                    Session.Add("usuario", usuarioLogueado);
+                    Response.Redirect("~/Account/MiPerfil.aspx", false);
+                }
+                else
+                {
+                    //Si no se puede loguear redirigir a login
+                    Session["registroExitoso"] = true;
+                    Response.Redirect("~/Account/Login.aspx", false);
+                }
+
+
             }
             catch (Exception ex)
             {
