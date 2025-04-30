@@ -401,8 +401,9 @@ namespace CatalogoArticulos.AccesoDatos
         {
             try
             {
-                _datos.setearConsulta("UPDATE USERS SET urlImagenPerfil = @imagen, Nombre = @nombre, Apellido = @apellido WHERE Id = @id");
+                _datos.setearConsulta("UPDATE USERS SET urlImagenPerfil = @imagen, Nombre = @nombre, Email = @email, Apellido = @apellido WHERE Id = @id");
                 _datos.setearParametro("@id", usuario.Id);
+                _datos.setearParametro("@email", usuario.Email);
                 _datos.setearParametro("@nombre", usuario.Nombre);
                 _datos.setearParametro("@apellido", usuario.Apellido);
                 _datos.setearParametro("@imagen", usuario.ImagenPerfil);

@@ -27,9 +27,10 @@ namespace TPFinalNivel3GimenezSantiago.Account
                 if (usuario != null)
                 {
 
-                    txtEmail.Text = usuario.Email;
-                    txtNombre.Text = usuario.Nombre;
-                    txtApellido.Text = usuario.Apellido;
+                    txtEmail.Text = usuario.Email ?? string.Empty;
+                    txtNombre.Text = usuario.Nombre ?? string.Empty;
+                    txtApellido.Text = usuario.Apellido ?? string.Empty;
+
                     string imagenUrl = !string.IsNullOrEmpty(usuario.ImagenPerfil) ? "~/Recursos/Images/" + usuario.ImagenPerfil : "https://us.123rf.com/450wm/koblizeek/koblizeek2208/koblizeek220800128/190320173-sin-s%C3%ADmbolo-de-vector-de-imagen-falta-el-icono-disponible-no-hay-galer%C3%ADa-para-este-marcador-de.jpg";
                     imgNuevoPerfil.ImageUrl = imagenUrl;
                 }
@@ -42,7 +43,8 @@ namespace TPFinalNivel3GimenezSantiago.Account
             try
             {
                 Usuario usuario = (Usuario)Session["usuario"];
-
+                usuario.Nombre = txtNombre.Text;
+                usuario.Apellido = txtApellido.Text;
                 if (txtImagen.PostedFile != null && txtImagen.PostedFile.ContentLength > 0)
                 {
                     string ruta = Server.MapPath("~/Recursos/Images/");
@@ -50,10 +52,9 @@ namespace TPFinalNivel3GimenezSantiago.Account
 
                     txtImagen.PostedFile.SaveAs(ruta + nombreArchivo);
                     usuario.ImagenPerfil = nombreArchivo;
-
+                }
                     new ArticulosNegocio(new AccesoDatos()).Actualizar(usuario);
                     Session["usuario"] = usuario;
-                }
 
                 ActualizarImagenMaster(usuario.ImagenPerfil);
 
