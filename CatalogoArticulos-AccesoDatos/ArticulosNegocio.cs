@@ -253,7 +253,6 @@ namespace CatalogoArticulos.AccesoDatos
         {
             try
             {
-                AccesoDatos datos = new AccesoDatos();
                 _datos.setearConsulta("delete from ARTICULOS where id = @id");
                 _datos.setearParametro("@id", id);
                 _datos.ejecutarAccion();
@@ -395,6 +394,28 @@ namespace CatalogoArticulos.AccesoDatos
             catch (Exception ex)
             {
                 throw new Exception("Error al filtrar los artículos en la base de datos.", ex);
+            }
+        }
+
+        public void Actualizar(Usuario usuario)
+        {
+            try
+            {
+                _datos.setearConsulta("UPDATE USERS SET urlImagenPerfil = @imagen, Nombre = @nombre, Apellido = @apellido WHERE Id = @id");
+                _datos.setearParametro("@id", usuario.Id);
+                _datos.setearParametro("@nombre", usuario.Nombre);
+                _datos.setearParametro("@apellido", usuario.Apellido);
+                _datos.setearParametro("@imagen", usuario.ImagenPerfil);
+                _datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            finally
+            {
+                _datos.CerrarConexion();
             }
         }
     }

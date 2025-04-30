@@ -51,7 +51,7 @@
                         </asp:Panel>
 
                         <asp:Panel ID="pnlLogueado" runat="server" CssClass="d-flex gap-2 align-items-center" Visible="false">
-                            <asp:Image ID="imgPerfil" Style="height: 40px; width: 40px; border-radius: 50%; object-fit: cover; border: 2px solid white;"
+                            <asp:Image ID="imgPerfil" Style="height: 40px; width: 40px; border-radius: 70%; object-fit: cover; border: 2px solid white;"
                                 ImageUrl="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png" runat="server" />
 
                             <asp:LinkButton ID="btnSalir" runat="server" CssClass="btn btn-danger"

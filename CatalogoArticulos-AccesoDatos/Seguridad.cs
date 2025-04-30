@@ -43,5 +43,9 @@ namespace CatalogoArticulos_AccesoDatos
             return session["usuario"] is Dominio.Usuario usuario && usuario.EsAdmin;
         }
 
+        public static bool SessionActiva(HttpSessionState session)
+        {
+            return session["usuario"] != null;
+        }
     }
 }

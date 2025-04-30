@@ -195,7 +195,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Recursos\Img\" />
+    <Folder Include="Recursos\Images\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CatalogoArticulos-AccesoDatos\CatalogoArticulos.AccesoDatos.csproj">
