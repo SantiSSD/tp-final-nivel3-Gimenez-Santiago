@@ -11,14 +11,16 @@ namespace TPFinalNivel3GimenezSantiago.Public
 {
     public partial class Catalogo : System.Web.UI.Page
     {
+        public bool FiltroAvanzado { get; set; }
         public List<Articulo> ListaArticulos { get; set; }
         protected void Page_Load(object sender, EventArgs e)
         {
 
             ArticulosNegocio negocio = new ArticulosNegocio(new AccesoDatos());
-                ListaArticulos = negocio.ObtenerArticulosConSP();
             if (!IsPostBack)
             {
+                ListaArticulos = negocio.ObtenerArticulosConSP();
+                Session["listaArticulos"] = ListaArticulos;
                 repArticulos.DataSource = ListaArticulos;
                 repArticulos.DataBind();
             }
@@ -39,6 +41,55 @@ namespace TPFinalNivel3GimenezSantiago.Public
         protected void btnDetalle_Click(object sender, EventArgs e)
         {
             string valor = ((Button)sender).CommandArgument;
+        }
+
+        protected void btnBuscar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ArticulosNegocio negocio = new ArticulosNegocio(new AccesoDatos());
+                repArticulos.DataSource = negocio.filtrar(ddlCampo.SelectedItem.ToString(),
+                ddlCriterio.SelectedItem.ToString(), txtFiltroAvanzado.Text);
+                repArticulos.DataBind();
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex);
+                throw;
+            }
+        }
+
+        protected void ddlCampo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            ddlCriterio.Items.Clear();
+            if (ddlCampo.SelectedItem.ToString() == "Codigo")
+            {
+                ddlCriterio.Items.Add("Contiene");
+                ddlCriterio.Items.Add("Comienza con");
+                ddlCriterio.Items.Add("Terminar con");
+            }
+            else
+            {
+                ddlCriterio.Items.Add("Contiene");
+                ddlCriterio.Items.Add("Comienza con");
+                ddlCriterio.Items.Add("Terminar con");
+            }
+        }
+
+        protected void chkAvanzado_CheckedChanged(object sender, EventArgs e)
+        {
+            FiltroAvanzado = chkAvanzado.Checked;
+            txtfiltro.Enabled = !FiltroAvanzado;
+
+        }
+
+        protected void txtfiltro_TextChanged(object sender, EventArgs e)
+        {
+            List<Articulo> lista = (List<Articulo>)Session["listaArticulos"];
+            List<Articulo> listaFiltrada = lista.FindAll(x => x.Nombre.ToUpper().Contains(txtfiltro.Text.ToUpper()));
+            repArticulos.DataSource = listaFiltrada;
+            repArticulos.DataBind();
+
         }
     }
 }
