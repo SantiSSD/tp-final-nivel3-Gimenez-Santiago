@@ -40,7 +40,8 @@ namespace TPFinalNivel3GimenezSantiago.Public
 
         protected void btnDetalle_Click(object sender, EventArgs e)
         {
-            string valor = ((Button)sender).CommandArgument;
+            string id = ((Button)sender).CommandArgument;
+            Response.Redirect($"DetalleProducto.aspx?Id={id}");
         }
 
         protected void btnBuscar_Click(object sender, EventArgs e)
