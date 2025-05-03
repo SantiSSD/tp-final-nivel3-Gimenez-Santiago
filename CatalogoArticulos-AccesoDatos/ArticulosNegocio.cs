@@ -271,10 +271,20 @@ namespace CatalogoArticulos.AccesoDatos
 
             try
             {
-                string consulta = "SELECT a.Id, a.Codigo, a.Nombre, a.Descripcion, a.IdMarca, m.Descripcion AS Marca, a.IdCategoria, c.Descripcion AS Categoria, a.Precio, a.ImagenUrl FROM Articulos a JOIN Marcas m ON a.IdMarca = m.Id JOIN Categorias c ON a.IdCategoria = c.Id AND ";
+                string consulta = @"
+                                 SELECT 
+                                         a.Id, a.Codigo, a.Nombre, a.Descripcion,
+                                         a.IdMarca, m.Descripcion AS Marca,
+                                         a.IdCategoria, c.Descripcion AS Categoria,
+                                         a.Precio, a.ImagenUrl
+                                         FROM Articulos a
+                                         JOIN Marcas m       ON a.IdMarca    = m.Id
+                                         JOIN Categorias c   ON a.IdCategoria = c.Id";
+                                                                                        
                 switch (campo)
                 {
                     case "Codigo":
+                        consulta += " WHERE ";
                         switch (criterio)
                         {
                             case "Comienza con":
@@ -290,6 +300,7 @@ namespace CatalogoArticulos.AccesoDatos
                         break;
 
                     case "Nombre":
+                        consulta += " WHERE ";
                         switch (criterio)
                         {
                             case "Comienza con":
@@ -305,6 +316,7 @@ namespace CatalogoArticulos.AccesoDatos
                         break;
 
                     case "Descripción":
+                        consulta += " WHERE ";
                         switch (criterio)
                         {
                             case "Comienza con":
@@ -320,31 +332,33 @@ namespace CatalogoArticulos.AccesoDatos
                         break;
 
                     case "Marca":
+                        consulta += " WHERE m.Descripcion LIKE @filtro";
                         switch (criterio)
                         {
                             case "Comienza con":
-                                consulta += "m.Descripcion LIKE @filtro + '%'";
+                                filtro = filtro + "%";
                                 break;
                             case "Termina con":
-                                consulta += "m.Descripcion LIKE '%' + @filtro";
+                                filtro = "%" + filtro;
                                 break;
                             case "Contiene":
-                                consulta += "m.Descripcion LIKE '%' + @filtro + '%'";
+                                filtro = "%" + filtro + "%";
                                 break;
                         }
                         break;
 
                     case "Categoria":
+                        consulta += " WHERE m.Descripcion LIKE @filtro";
                         switch (criterio)
                         {
                             case "Comienza con":
-                                consulta += "c.Descripcion LIKE @filtro + '%'";
+                                filtro = filtro + "%";
                                 break;
                             case "Termina con":
-                                consulta += "c.Descripcion LIKE '%' + @filtro";
+                                filtro = "%" + filtro;
                                 break;
                             case "Contiene":
-                                consulta += "c.Descripcion LIKE '%' + @filtro + '%'";
+                                filtro = "%" + filtro + "%";
                                 break;
                         }
                         break;

@@ -48,7 +48,7 @@ namespace TPFinalNivel3GimenezSantiago.Account
                 if (txtImagen.PostedFile != null && txtImagen.PostedFile.ContentLength > 0)
                 {
                     string ruta = Server.MapPath("~/Recursos/Images/");
-                    string nombreArchivo = $"perfil-{usuario.Id}.jpg";
+                    string nombreArchivo = $"perfil-{usuario.Id}-{Guid.NewGuid()}.jpg";
 
                     txtImagen.PostedFile.SaveAs(ruta + nombreArchivo);
                     usuario.ImagenPerfil = nombreArchivo;
@@ -57,6 +57,7 @@ namespace TPFinalNivel3GimenezSantiago.Account
                     Session["usuario"] = usuario;
 
                 ActualizarImagenMaster(usuario.ImagenPerfil);
+                imgNuevoPerfil.ImageUrl = $"~/Recursos/Images/{usuario.ImagenPerfil}?t={DateTime.Now.Ticks}";
 
             }
             catch (Exception ex)

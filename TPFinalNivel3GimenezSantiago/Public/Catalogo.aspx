@@ -3,55 +3,70 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <h1>Catalogo!!</h1>
-        <div class="row">
-        <div class="col-6">
-            <div class="mb-3">
-                <asp:Label Text="Filtrar" runat="server" />
-                <asp:TextBox runat="server" ID="txtfiltro" CssClass="form-control" AutoPostBack="true" OnTextChanged="txtfiltro_TextChanged" />
-            </div>
-        </div>
-        <div class="col-6" style="display: flex; flex-direction: column; justify-content: flex-end;">
-            <div class="mb-3">
-                <asp:CheckBox Text="Filtro Avanzado" CssClass="" ID="chkAvanzado" runat="server" AutoPostBack="true" OnCheckedChanged="chkAvanzado_CheckedChanged" />
-            </div>
-        </div>
-        <%if (chkAvanzado.Checked)
-            { %>
-        <div class="row">
-            <div class="col-3">
-                <div class="mb-3">
-                    <asp:Label Text="Campo" ID="lblCampo" runat="server" />
-                    <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control" ID="ddlCampo" OnSelectedIndexChanged="ddlCampo_SelectedIndexChanged">
-                        <asp:ListItem Text="Codigo" />
-                        <asp:ListItem Text="Nombre" />
-                        <asp:ListItem Text="Marca" />
-                        <asp:ListItem Text="Categoria" />
-                    </asp:DropDownList>
+<div class="container">
+    <div class="row justify-content-center mb-4">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title text-center mb-4">Filtrar Productos</h5>
+                    <div class="row g-3">
+                        <div class="col-md-8">
+                            <div class="input-group">
+                                <span class="input-group-text bg-primary text-white">
+                                    <i class="bi bi-search"></i>
+                                </span>
+                                <asp:TextBox runat="server" ID="txtfiltro" CssClass="form-control" 
+                                    placeholder="Buscar productos..." AutoPostBack="true" 
+                                    OnTextChanged="txtfiltro_TextChanged" />
+                            </div>
+                        </div>
+                        <div class="col-md-4 d-flex align-items-center">
+                            <div class="form-check form-switch">
+                                <asp:CheckBox runat="server" ID="chkAvanzado" AutoPostBack="true"
+                                    OnCheckedChanged="chkAvanzado_CheckedChanged" />
+                                <label class="form-check-label" for="<%= chkAvanzado.ClientID %>">
+                                    Filtro Avanzado
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <% if (chkAvanzado.Checked) { %>
+                    <div class="mt-4 pt-3 border-top">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label">Campo</label>
+                                <asp:DropDownList runat="server" CssClass="form-select" ID="ddlCampo"
+                                    AutoPostBack="true" OnSelectedIndexChanged="ddlCampo_SelectedIndexChanged">
+                                    <asp:ListItem Text="Nombre" Value="Nombre" />
+                                    <asp:ListItem Text="Marca" Value="Marca" />
+                                    <asp:ListItem Text="Categoria" Value="Categoria" />
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Criterio</label>
+                                <asp:DropDownList runat="server" ID="ddlCriterio" CssClass="form-select">
+                                    <asp:ListItem Text="Contiene" Value="Contiene" />
+                                    <asp:ListItem Text="Comienza con" Value="Comienza" />
+                                    <asp:ListItem Text="Termina con" Value="Termina" />
+                                </asp:DropDownList>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Valor</label>
+                                <div class="input-group">
+                                    <asp:TextBox runat="server" ID="txtFiltroAvanzado" CssClass="form-control" />
+                                    <asp:Button Text="Buscar" runat="server" CssClass="btn btn-primary" 
+                                        ID="btnBuscar" OnClick="btnBuscar_Click" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <% } %>
                 </div>
             </div>
-            <div class="col-3">
-                <div class="mb-3">
-                    <asp:Label Text="Criterio" runat="server" />
-                    <asp:DropDownList runat="server" ID="ddlCriterio" CssClass="form-control"></asp:DropDownList>
-                </div>
-            </div>
-            <div class="col-3">
-                <div class="mb-3">
-                    <asp:Label Text="Filtro" runat="server" />
-                    <asp:TextBox runat="server" ID="txtFiltroAvanzado" CssClass="form-control" />
-                </div>
-            </div>
         </div>
-        <div class="row">
-            <div class="col-3">
-                <div class="mb-3">
-                    <asp:Button Text="Buscar" runat="server" CssClass="btn btn-primary" ID="btnBuscar" OnClick="btnBuscar_Click" />
-                </div>
-            </div>
-        </div>
-        <%} %>
     </div>
+</div>
     <div class="container mt-4">
         <div class="row row-cols-1 row-cols-md-3 g-4">
             <asp:Repeater ID="repArticulos" runat="server">

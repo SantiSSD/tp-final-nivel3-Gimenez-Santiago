@@ -80,7 +80,7 @@
     <Content Include="Public\DetalleProducto.aspx" />
     <Content Include="Public\Home.aspx" />
     <Content Include="Recursos\Css\BotonesMasterPage.css" />
-    <Content Include="Recursos\Css\estilos.css" />
+    <Content Include="Recursos\Css\estiloscards-navbar.css" />
     <Content Include="Recursos\Css\FormularioEstilo.css" />
     <Content Include="Recursos\Js\Scripts.js" />
     <Content Include="Validaciones\Error.aspx" />

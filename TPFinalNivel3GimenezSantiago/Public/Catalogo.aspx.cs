@@ -49,8 +49,8 @@ namespace TPFinalNivel3GimenezSantiago.Public
             try
             {
                 ArticulosNegocio negocio = new ArticulosNegocio(new AccesoDatos());
-                repArticulos.DataSource = negocio.filtrar(ddlCampo.SelectedItem.ToString(),
-                ddlCriterio.SelectedItem.ToString(), txtFiltroAvanzado.Text);
+                repArticulos.DataSource = negocio.filtrar(ddlCampo.SelectedItem.Text,
+                ddlCriterio.SelectedItem.Text, txtFiltroAvanzado.Text);
                 repArticulos.DataBind();
             }
             catch (Exception ex)
@@ -63,19 +63,28 @@ namespace TPFinalNivel3GimenezSantiago.Public
         protected void ddlCampo_SelectedIndexChanged(object sender, EventArgs e)
         {
             ddlCriterio.Items.Clear();
-            if (ddlCampo.SelectedItem.ToString() == "Codigo")
+            if (ddlCampo.SelectedItem.Text == "Nombre")
             {
                 ddlCriterio.Items.Add("Contiene");
                 ddlCriterio.Items.Add("Comienza con");
                 ddlCriterio.Items.Add("Terminar con");
             }
-            else
+            else if (ddlCampo.SelectedItem.Text == "Marca")
+            {
+
+                ddlCriterio.Items.Add("Contiene");
+                ddlCriterio.Items.Add("Comienza con");
+                ddlCriterio.Items.Add("Terminar con");
+            }
+
+            else 
             {
                 ddlCriterio.Items.Add("Contiene");
                 ddlCriterio.Items.Add("Comienza con");
                 ddlCriterio.Items.Add("Terminar con");
             }
         }
+        
 
         protected void chkAvanzado_CheckedChanged(object sender, EventArgs e)
         {
