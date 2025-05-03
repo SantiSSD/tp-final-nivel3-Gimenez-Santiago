@@ -22,17 +22,23 @@
                 <div class="mb-3">
                     <asp:Label Text="Campo" ID="lblCampo" runat="server" />
                     <asp:DropDownList runat="server" AutoPostBack="true" CssClass="form-control" ID="ddlCampo" OnSelectedIndexChanged="ddlCampo_SelectedIndexChanged">
-                        <asp:ListItem Text="Codigo" />
-                        <asp:ListItem Text="Nombre" />
-                        <asp:ListItem Text="Marca" />
-                        <asp:ListItem Text="Categoria" />
+                        <asp:ListItem Text="Codigo" Value="Codigo" />
+                        <asp:ListItem Text="Nombre" Value="Nombre" />
+                        <asp:ListItem Text="Descripcion" Value="Descripcion" />
+                        <asp:ListItem Text="Marca" Value="Marca" />
+                        <asp:ListItem Text="Categoria" Value="Categoria" />
                     </asp:DropDownList>
                 </div>
             </div>
             <div class="col-3">
                 <div class="mb-3">
                     <asp:Label Text="Criterio" runat="server" />
-                    <asp:DropDownList runat="server" ID="ddlCriterio" CssClass="form-control"></asp:DropDownList>
+                    <asp:DropDownList runat="server" ID="ddlCriterio" CssClass="form-control">
+                        <asp:ListItem Text="Contiene"     Value="Contiene" />
+                        <asp:ListItem Text="Comienza con" Value="Comienza" />
+                        <asp:ListItem Text="Termina con"  Value="Termina" />
+                    </asp:DropDownList>
+
                 </div>
             </div>
             <div class="col-3">

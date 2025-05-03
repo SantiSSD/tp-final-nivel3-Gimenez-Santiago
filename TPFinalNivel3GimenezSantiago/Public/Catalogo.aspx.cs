@@ -67,21 +67,21 @@ namespace TPFinalNivel3GimenezSantiago.Public
             {
                 ddlCriterio.Items.Add("Contiene");
                 ddlCriterio.Items.Add("Comienza con");
-                ddlCriterio.Items.Add("Terminar con");
+                ddlCriterio.Items.Add("Termina con");
             }
             else if (ddlCampo.SelectedItem.Text == "Marca")
             {
 
                 ddlCriterio.Items.Add("Contiene");
                 ddlCriterio.Items.Add("Comienza con");
-                ddlCriterio.Items.Add("Terminar con");
+                ddlCriterio.Items.Add("Termina con");
             }
 
             else 
             {
                 ddlCriterio.Items.Add("Contiene");
                 ddlCriterio.Items.Add("Comienza con");
-                ddlCriterio.Items.Add("Terminar con");
+                ddlCriterio.Items.Add("Termina con");
             }
         }
         

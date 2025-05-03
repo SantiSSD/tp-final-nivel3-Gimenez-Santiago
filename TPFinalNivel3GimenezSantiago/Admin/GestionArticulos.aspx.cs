@@ -50,17 +50,29 @@ namespace TPFinalNivel3GimenezSantiago.Admin
         protected void ddlCampo_SelectedIndexChanged(object sender, EventArgs e)
         {
             ddlCriterio.Items.Clear();
-            if (ddlCampo.SelectedItem.ToString() == "Codigo")
+            if (ddlCampo.SelectedItem.Text == "Codigo")
             {
                 ddlCriterio.Items.Add("Contiene");
                 ddlCriterio.Items.Add("Comienza con");
-                ddlCriterio.Items.Add("Terminar con");
+                ddlCriterio.Items.Add("Termina con");
+            }
+            else if(ddlCampo.SelectedItem.Text == "Nombre")
+            {
+                ddlCriterio.Items.Add("Contiene");
+                ddlCriterio.Items.Add("Comienza con");
+                ddlCriterio.Items.Add("Termina con");
+            }
+            else if (ddlCampo.SelectedItem.Text == "Marca")
+            {
+                ddlCriterio.Items.Add("Contiene");
+                ddlCriterio.Items.Add("Comienza con");
+                ddlCriterio.Items.Add("Termina con");
             }
             else
             {
                 ddlCriterio.Items.Add("Contiene");
                 ddlCriterio.Items.Add("Comienza con");
-                ddlCriterio.Items.Add("Terminar con");
+                ddlCriterio.Items.Add("Termina con");
             }
         }
 
@@ -76,8 +88,8 @@ namespace TPFinalNivel3GimenezSantiago.Admin
             try
             {
                 ArticulosNegocio negocio = new ArticulosNegocio(new AccesoDatos());
-                dgvArticulos.DataSource = negocio.filtrar(ddlCampo.SelectedItem.ToString(),
-                ddlCriterio.SelectedItem.ToString(), txtFiltroAvanzado.Text);
+                dgvArticulos.DataSource = negocio.filtrar(ddlCampo.SelectedItem.Text,
+                ddlCriterio.SelectedItem.Text, txtFiltroAvanzado.Text);
                 dgvArticulos.DataBind();
             }
             catch (Exception ex)

@@ -315,7 +315,7 @@ namespace CatalogoArticulos.AccesoDatos
                         }
                         break;
 
-                    case "Descripción":
+                    case "Descripcion":
                         consulta += " WHERE ";
                         switch (criterio)
                         {
@@ -348,7 +348,7 @@ namespace CatalogoArticulos.AccesoDatos
                         break;
 
                     case "Categoria":
-                        consulta += " WHERE m.Descripcion LIKE @filtro";
+                        consulta += " WHERE c.Descripcion LIKE @filtro";
                         switch (criterio)
                         {
                             case "Comienza con":
