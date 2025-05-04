@@ -79,9 +79,17 @@
 
             <!-- Precio -->
             <div class="mb-3">
+
                 <label for="txtPrecio" class="form-label">Precio</label>
                 <asp:TextBox ID="txtPrecio" CssClass="form-control" runat="server">
                 </asp:TextBox>
+                <asp:RegularExpressionValidator
+                    ID="revPrecio"
+                    runat="server"
+                    ControlToValidate="txtPrecio"
+                    ErrorMessage="Solo se permiten números (hasta 2 decimales)"
+                    CssClass="text-danger"
+                       ValidationExpression="^\d{1,9}(\.\d{1,2})?$" />
             </div>
 
             <!-- Descripción -->
