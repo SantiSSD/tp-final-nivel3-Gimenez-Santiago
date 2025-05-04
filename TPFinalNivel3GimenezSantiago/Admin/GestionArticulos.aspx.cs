@@ -35,6 +35,26 @@ namespace TPFinalNivel3GimenezSantiago.Admin
         protected void dgvArticulos_PageIndexChanging(object sender, GridViewPageEventArgs e)
         {
             dgvArticulos.PageIndex = e.NewPageIndex;
+            
+            if (chkAvanzado.Checked)
+            {
+                ArticulosNegocio negocio = new ArticulosNegocio(new AccesoDatos());
+                var listaFiltrada = negocio.filtrar(ddlCampo.SelectedItem.Text,
+                                                    ddlCriterio.SelectedItem.Text,
+                                                    txtFiltroAvanzado.Text);
+                dgvArticulos.DataSource = listaFiltrada;
+            }
+            else if (!string.IsNullOrEmpty(txtfiltro.Text))
+            {
+                List<Articulo> lista = (List<Articulo>)Session["listaArticulos"];
+                var listaFiltrada = lista.FindAll(x => x.Nombre.ToUpper().Contains(txtfiltro.Text.ToUpper()));
+                dgvArticulos.DataSource = listaFiltrada;
+            }
+            else
+            {
+                dgvArticulos.DataSource = Session["listaArticulos"];
+            }
+
             dgvArticulos.DataBind();
 
         }
@@ -56,7 +76,7 @@ namespace TPFinalNivel3GimenezSantiago.Admin
                 ddlCriterio.Items.Add("Comienza con");
                 ddlCriterio.Items.Add("Termina con");
             }
-            else if(ddlCampo.SelectedItem.Text == "Nombre")
+            else if (ddlCampo.SelectedItem.Text == "Nombre")
             {
                 ddlCriterio.Items.Add("Contiene");
                 ddlCriterio.Items.Add("Comienza con");
