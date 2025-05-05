@@ -5,6 +5,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SqlClient;
 using System.Security.Cryptography.X509Certificates;
+using System.Configuration;
+using System.Web.Configuration;
 
 namespace CatalogoArticulos.AccesoDatos
 {
@@ -21,8 +23,10 @@ namespace CatalogoArticulos.AccesoDatos
 
         public AccesoDatos()
         {
-            _conexion = new SqlConnection("server=.\\SQLEXPRESS; database=CATALOGO_WEB_DB; integrated security=true;");
+            _conexion = new SqlConnection(ConfigurationManager.AppSettings["cadenaConexion"]);
             _comando = new SqlCommand();
+
+            //_conexion = new SqlConnection("server=.\\SQLEXPRESS; database=CATALOGO_WEB_DB; integrated security=true;");
         }
         public void setearConsulta(string consulta)
         {
@@ -49,10 +53,10 @@ namespace CatalogoArticulos.AccesoDatos
             catch (Exception ex)
             {
 
-                throw new Exception("Error al ejecutar la consulta del lectura",ex);
+                throw new Exception("Error al ejecutar la consulta del lectura", ex);
             }
 
- 
+
         }
 
         public void ejecutarAccion()
@@ -70,10 +74,10 @@ namespace CatalogoArticulos.AccesoDatos
             }
 
         }
-        public void setearParametro(string nombre, object valor) 
+        public void setearParametro(string nombre, object valor)
         {
             _comando.Parameters.AddWithValue(nombre, valor);
-        
+
         }
 
         public void CerrarConexion()
