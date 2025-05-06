@@ -71,7 +71,6 @@
     <Content Include="Account\MiPerfil.aspx" />
     <Content Include="Account\MisFavoritos.aspx" />
     <Content Include="Account\Registro.aspx" />
-    <Content Include="Admin\Dashboard.aspx" />
     <Content Include="Admin\FormularioArticulos.aspx" />
     <Content Include="Admin\GestionArticulos.aspx" />
     <Content Include="Default.aspx" />
@@ -113,13 +112,6 @@
     </Compile>
     <Compile Include="Account\Registro.aspx.designer.cs">
       <DependentUpon>Registro.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Admin\Dashboard.aspx.cs">
-      <DependentUpon>Dashboard.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Admin\Dashboard.aspx.designer.cs">
-      <DependentUpon>Dashboard.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\FormularioArticulos.aspx.cs">
       <DependentUpon>FormularioArticulos.aspx</DependentUpon>
