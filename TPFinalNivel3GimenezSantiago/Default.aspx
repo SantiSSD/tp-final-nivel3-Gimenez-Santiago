@@ -6,6 +6,8 @@
 
     <div class="container mt-5 text-center">
         <h1 class="display-4">Bienvenido a Tienda Santi 😎</h1>
+        <h3 >Usuario : admin@admin.com | Contraseña : admin </h3>
+        <h3>Usuario : user@user.com   | Contraseña : user  </h3>
         <p class="lead slide-in">Explorá nuestros productos y descubrí lo que tenemos para vos.</p>
         <asp:HyperLink NavigateUrl="~/Public/Catalogo.aspx" CssClass="btn btn-primary btn-lg mt-3 custom-btn zoom-in"  runat="server">Ver Catálogo</asp:HyperLink>
     </div>

@@ -78,7 +78,6 @@
     <Content Include="Global.asax" />
     <Content Include="Public\Catalogo.aspx" />
     <Content Include="Public\DetalleProducto.aspx" />
-    <Content Include="Public\Home.aspx" />
     <Content Include="Recursos\Css\BotonesMasterPage.css" />
     <Content Include="Recursos\Css\estiloscards-navbar.css" />
     <Content Include="Recursos\Css\FormularioEstilo.css" />
@@ -167,13 +166,6 @@
     </Compile>
     <Compile Include="Public\DetalleProducto.aspx.designer.cs">
       <DependentUpon>DetalleProducto.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Public\Home.aspx.cs">
-      <DependentUpon>Home.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Public\Home.aspx.designer.cs">
-      <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
     <Compile Include="Validaciones\Error.aspx.cs">
       <DependentUpon>Error.aspx</DependentUpon>
